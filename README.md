@@ -13,20 +13,20 @@ Aplicacion movil en Flutter para explorar musica con Spotify API.
 ## Cambios implementados en esta modernizacion
 
 - Migracion de nomenclatura de peliculas a canciones:
-	- `Movie` -> `Song`
-	- `MoviesProvider` -> `SongsProvider`
-	- `movie_slider.dart` -> `song_slider.dart`
+  - `Movie` -> `Song`
+  - `MoviesProvider` -> `SongsProvider`
+  - `movie_slider.dart` -> `song_slider.dart`
 - Correcciones de integracion Spotify para credenciales restringidas:
-	- Search con limites compatibles (`limit=10`).
-	- Fallback de top tracks por busqueda (`artist:<nombre>`), cuando endpoint oficial falla.
+  - Search con limites compatibles (`limit=10`).
+  - Fallback de top tracks por busqueda (`artist:<nombre>`), cuando endpoint oficial falla.
 - Mejora visual:
-	- Tema minimalista claro (blanco principal, grises y negro de contraste).
-	- Badge informativo en detalle: `Top tracks (fallback por busqueda)`.
+  - Tema minimalista claro (blanco principal, grises y negro de contraste).
+  - Badge informativo en detalle: `Top tracks (fallback por busqueda)`.
 - Organizacion del repositorio por tipo de artefacto:
-	- Evidencias visuales en `docs/evidence/screenshots/`
-	- Jerarquias UI (xml) en `docs/evidence/ui-hierarchy/`
-	- Reportes y logs en `docs/reports/`
-	- Scripts tecnicos en `scripts/` separados por categoria.
+  - Evidencias visuales en `docs/evidence/screenshots/`
+  - Jerarquias UI (xml) en `docs/evidence/ui-hierarchy/`
+  - Reportes y logs en `docs/reports/`
+  - Scripts tecnicos en `scripts/` separados por categoria.
 
 ## Requisitos
 
@@ -42,7 +42,7 @@ Aplicacion movil en Flutter para explorar musica con Spotify API.
 copy .env.example .env
 ```
 
-2. Completa variables:
+1. Completa variables:
 
 ```env
 SPOTIFY_CLIENT_ID=tu_client_id
@@ -51,6 +51,15 @@ SPOTIFY_REDIRECT_URI=com.example.appmovilspotify://spotify-auth
 ```
 
 Nota: este taller usa `Client Credentials`. En produccion no se debe exponer `client_secret` en app movil.
+
+### Validacion de Spotify Dashboard (Fase 1)
+
+Esta validacion no se puede automatizar desde Flutter porque vive en tu cuenta de Spotify for Developers. Para entrega del taller, incluye evidencia de:
+
+- App registrada con nombre `Spotiapp Mobile`.
+- `Client ID` visible en el dashboard.
+- Redirect URI configurado (por ejemplo `http://localhost:8888/callback` o esquema movil).
+- Variables en `.env` alineadas con esa configuracion.
 
 ## Instalacion
 
@@ -89,9 +98,12 @@ flutter run -d emulator-5554 --no-resident --no-enable-impeller --enable-softwar
 
 ## Endpoints usados
 
+- `GET /v1/browse/new-releases` (endpoint oficial para Home)
 - `GET /v1/search` (artist, track)
 - `GET /v1/artists/{id}`
 - `GET /v1/artists/{id}/top-tracks` (con fallback si no disponible)
+
+Nota de compatibilidad: si `browse/new-releases` devuelve `403` por restricciones de credenciales, la app activa fallback con busquedas por genero para no romper la experiencia.
 
 ## Que se puede hacer con este proyecto
 

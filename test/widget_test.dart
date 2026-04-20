@@ -1,30 +1,120 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:peliculas_app/models/models.dart';
+import 'package:peliculas_app/providers/songs_provider.dart';
+import 'package:peliculas_app/screens/artist_screen.dart';
+import 'package:peliculas_app/screens/home_screen.dart';
+import 'package:peliculas_app/screens/search_screen.dart';
+import 'package:provider/provider.dart';
 
-import 'package:peliculas_app/main.dart';
+class TestSongsProvider extends SongsProvider {
+  @override
+  Future<void> loadNewReleases() async {
+    newReleases = [
+      SpotifyAlbum(
+        id: 'a1',
+        name: 'Album de prueba',
+        imageUrl: '',
+        artistName: 'Artista demo',
+        artistId: 'artist-1',
+      ),
+    ];
+    isLoadingHome = false;
+    errorMessage = null;
+    notifyListeners();
+  }
+
+  @override
+  Future<void> searchArtists(String query) async {
+    artists = [
+      SpotifyArtist(
+        id: 'artist-1',
+        name: 'Artista demo',
+        imageUrl: '',
+        followers: 123,
+      ),
+    ];
+    isSearchingArtists = false;
+    errorMessage = null;
+    notifyListeners();
+  }
+
+  @override
+  Future<void> loadTopTracks(String artistId) async {
+    topTracks = [
+      SpotifyTrack(
+        id: 'track-1',
+        name: 'Cancion demo',
+        albumName: 'Album demo',
+        previewUrl: null,
+        durationMs: 90000,
+      ),
+    ];
+    isLoadingTracks = false;
+    isTopTracksFallback = false;
+    errorMessage = null;
+    notifyListeners();
+  }
+}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('HomeScreen renderiza titulo y grid de albums', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      ChangeNotifierProvider<SongsProvider>(
+        create: (_) => TestSongsProvider(),
+        child: const MaterialApp(home: HomeScreen()),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Spotiapp Mobile'), findsOneWidget);
+    expect(find.text('Album de prueba'), findsOneWidget);
+    expect(find.byIcon(Icons.search_outlined), findsOneWidget);
+  });
+
+  testWidgets('SearchScreen muestra campo de busqueda', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      ChangeNotifierProvider<SongsProvider>(
+        create: (_) => TestSongsProvider(),
+        child: const MaterialApp(home: SearchScreen()),
+      ),
+    );
+
+    expect(find.text('Buscar artista'), findsOneWidget);
+    expect(find.byType(TextField), findsOneWidget);
+    expect(find.text('Escribe un artista...'), findsOneWidget);
+  });
+
+  testWidgets('ArtistScreen muestra artista y track', (WidgetTester tester) async {
+    final artist = SpotifyArtist(
+      id: 'artist-1',
+      name: 'Artista demo',
+      imageUrl: '',
+      followers: 123,
+    );
+
+    await tester.pumpWidget(
+      ChangeNotifierProvider<SongsProvider>(
+        create: (_) => TestSongsProvider(),
+        child: MaterialApp(
+          onGenerateRoute: (settings) {
+            return MaterialPageRoute<void>(
+              settings: RouteSettings(name: settings.name, arguments: artist),
+              builder: (_) => const ArtistScreen(),
+            );
+          },
+        ),
+      ),
+    );
+
+    await tester.pump();
+
+    expect(find.text('Artista demo'), findsWidgets);
+    expect(find.text('Cancion demo'), findsOneWidget);
   });
 }
