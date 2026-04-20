@@ -58,8 +58,30 @@ class SpotifyService {
   Future<List<SpotifyAlbum>> getNewReleases() async {
     final token = await _getAccessToken();
 
-    // Usar /v1/search para obtener artistas populares en varios géneros
-    // Como fallback a browse/new-releases que requiere permisos especiales
+    // Endpoint oficial del taller.
+    final officialUri = Uri.https('api.spotify.com', '/v1/browse/new-releases', {
+      'limit': '20',
+      'country': 'US',
+    });
+
+    final officialResponse = await http.get(
+      officialUri,
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (officialResponse.statusCode == 200) {
+      final data = jsonDecode(officialResponse.body) as Map<String, dynamic>;
+      final albumsBlock = data['albums'] as Map<String, dynamic>? ?? {};
+      final items = albumsBlock['items'] as List<dynamic>? ?? [];
+
+      return items
+          .cast<Map<String, dynamic>>()
+          .map(SpotifyAlbum.fromMap)
+          .take(24)
+          .toList();
+    }
+
+    // Fallback para cuentas con restricciones de API (ej. 403 en browse).
     final popularSearches = ['genre:pop', 'genre:rock', 'genre:hip-hop'];
 
     final albums = <SpotifyAlbum>[];
@@ -106,7 +128,13 @@ class SpotifyService {
       if (albums.length >= 24) break;
     }
 
-    return albums.take(24).toList();
+    if (albums.isNotEmpty) {
+      return albums.take(24).toList();
+    }
+
+    throw Exception(
+      'Error cargando nuevos lanzamientos. browse/new-releases status=${officialResponse.statusCode}',
+    );
   }
 
   Future<List<SpotifyArtist>> searchArtists(String query) async {
