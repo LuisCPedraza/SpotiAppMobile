@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:peliculas_app/screens/screens.dart';
-import 'package:peliculas_app/providers/songs_provider.dart';
+import 'package:canciones_app/screens/screens.dart';
+import 'package:canciones_app/providers/songs_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Spotiapp Mobile',
+      title: 'Canciones App',
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: const ColorScheme.light(

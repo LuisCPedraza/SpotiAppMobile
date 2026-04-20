@@ -2,7 +2,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:label="peliculas_app"
+        android:label="Canciones App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

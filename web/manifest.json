@@ -1,6 +1,6 @@
 {
-    "name": "peliculas_app",
-    "short_name": "peliculas_app",
+    "name": "Canciones App",
+    "short_name": "Canciones App",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

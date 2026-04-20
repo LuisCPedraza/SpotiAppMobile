@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peliculas_app/models/models.dart';
-import 'package:peliculas_app/providers/songs_provider.dart';
-import 'package:peliculas_app/widgets/widgets.dart';
+import 'package:canciones_app/models/models.dart';
+import 'package:canciones_app/providers/songs_provider.dart';
+import 'package:canciones_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class DetailArguments {

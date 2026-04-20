@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peliculas_app/models/models.dart';
-import 'package:peliculas_app/services/spotify_service.dart';
+import 'package:canciones_app/models/models.dart';
+import 'package:canciones_app/services/spotify_service.dart';
 
 class SongsProvider extends ChangeNotifier {
   final SpotifyService _spotifyService = SpotifyService();

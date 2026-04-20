@@ -1,5 +1,5 @@
-import 'package:peliculas_app/models/models.dart';
-import 'package:peliculas_app/screens/details_screen.dart';
+import 'package:canciones_app/models/models.dart';
+import 'package:canciones_app/screens/details_screen.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 

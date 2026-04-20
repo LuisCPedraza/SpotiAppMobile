@@ -1,4 +1,4 @@
-# Spotiapp Mobile
+# Canciones App
 
 Aplicacion movil en Flutter para explorar musica con Spotify API.
 
@@ -56,7 +56,7 @@ Nota: este taller usa `Client Credentials`. En produccion no se debe exponer `cl
 
 Esta validacion no se puede automatizar desde Flutter porque vive en tu cuenta de Spotify for Developers. Para entrega del taller, incluye evidencia de:
 
-- App registrada con nombre `Spotiapp Mobile`.
+- App registrada con nombre `Canciones App`.
 - `Client ID` visible en el dashboard.
 - Redirect URI configurado (por ejemplo `http://localhost:8888/callback` o esquema movil).
 - Variables en `.env` alineadas con esa configuracion.

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:peliculas_app/models/models.dart';
-import 'package:peliculas_app/providers/songs_provider.dart';
-import 'package:peliculas_app/screens/artist_screen.dart';
-import 'package:peliculas_app/screens/home_screen.dart';
-import 'package:peliculas_app/screens/search_screen.dart';
+import 'package:canciones_app/models/models.dart';
+import 'package:canciones_app/providers/songs_provider.dart';
+import 'package:canciones_app/screens/artist_screen.dart';
+import 'package:canciones_app/screens/home_screen.dart';
+import 'package:canciones_app/screens/search_screen.dart';
 import 'package:provider/provider.dart';
 
 class TestSongsProvider extends SongsProvider {
@@ -70,7 +70,7 @@ void main() {
 
     await tester.pump();
 
-    expect(find.text('Spotiapp Mobile'), findsOneWidget);
+    expect(find.text('Canciones App'), findsOneWidget);
     expect(find.text('Album de prueba'), findsOneWidget);
     expect(find.byIcon(Icons.search_outlined), findsOneWidget);
   });

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:peliculas_app/models/song.dart';
+import 'package:canciones_app/models/song.dart';
 
 class NowPlayingResponse {
   NowPlayingResponse({

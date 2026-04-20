@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peliculas_app/models/models.dart';
-import 'package:peliculas_app/providers/songs_provider.dart';
-import 'package:peliculas_app/screens/screens.dart';
+import 'package:canciones_app/models/models.dart';
+import 'package:canciones_app/providers/songs_provider.dart';
+import 'package:canciones_app/screens/screens.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Spotiapp Mobile'),
+        title: const Text('Canciones App'),
         elevation: 0,
         actions: [
           IconButton(

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:peliculas_app/models/models.dart';
+import 'package:canciones_app/models/models.dart';
 
 class SpotifyService {
   String? _accessToken;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peliculas_app/models/models.dart';
-import 'package:peliculas_app/screens/details_screen.dart';
+import 'package:canciones_app/models/models.dart';
+import 'package:canciones_app/screens/details_screen.dart';
 
 class SongSlider extends StatelessWidget {
   final List<Song> songs;
